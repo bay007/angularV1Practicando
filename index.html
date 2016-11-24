@@ -5,28 +5,45 @@
 <title>Hello AngularJS - Hello World</title>
 
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+
+</head>
+<body>
+	<div ng-controller="BookController">
+	    Id: <span ng-bind="book.id"></span>    <br/>
+	    Name:<input type="text" ng-model="book.name" />    <br/>
+	    Author: <input type="text" ng-model="book.author" />    <br/>
+	    Is Available: <span ng-bind="isAvailable() ? 'Yes' : 'No' "></span>    <br/>
+	    <button ng-click="deleteBook()">Delete</button>    <br/>    
+	    <button ng-click="updateBook()">Update</button>
+	</div>
+</body>
 <script>
 	angular.module("helloApp", [])
 	
 	.controller('BookController', ['$scope', '$http', function($scope, $http) {
-	    var bookId = 1;
-      	$http.jsonp('http://www.mocky.io/v2/583664bb1100006b190c00a1?callback=JSON_CALLBACK').success(function(bookData) {
-            $scope.books = bookData;
+		var bookId = 1;
+		var url = 'http://www.mocky.io/v2/583664bb1100006b190c00a1?callback=JSON_CALLBACK';
+		
+		$http.jsonp( url ).success(function(bookData) {
+			
+			$scope.book = bookData;    
+
+			$scope.deleteBook = function() { 
+				alert(url + '/books/' + bookId);    
+			};
+
+			$scope.updateBook = function() {
+				alert(url + '/books/' + bookId, $scope.book);
+			};
+			
+			$scope.isAvailable = function() {
+				if (!$scope.book.stores || $scope.book.stores.length === 0) {
+					return false;
+				}
+
+				return ($scope.book.stores.length>0);
+			};
 		});
 	}]);
 </script>
-</head>
-<body>
-	<div ng-controller="BookController">
-		Id: <span ng-bind="books.id"></span>	<br/>
-		Name:<input type="text" ng-model="books.name" />	<br/>
-		Author: <input type="text" ng-model="books.author" />
-
-		<div ng-repeat="book in books.stores">
-			<hr>
-			Store Id: <span ng-bind="book.id"></span>	<br/>
-			Store Name:<input type="text" ng-model="book.name" />	<br/>
-		</div>
-	</div>		
-</body>
 </html>	
