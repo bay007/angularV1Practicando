@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="helloApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Hello AngularJS - Hello World</title>
+
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+<script>
+	angular.module("helloApp", [])
+	
+	.controller("HelloCtrl", function( $scope ) {
+		$scope.name = "Calvin-Hobbes";
+	});
+</script>
+</head>
+<body ng-controller="HelloCtrl">
+	<div class="container">
+		<h4>Hello {{name}} How are you doing today</h4></div>
+		<input type="text" ng-model="name">
+	</div>
+</body>
+</html>	
