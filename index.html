@@ -8,26 +8,12 @@
 <script>
 	angular.module("helloApp", [])
 	
-	.controller('BookController', ['$scope', function($scope) {      
-		$scope.books = {
-		        id: 1,
-		        name: 'Harry Potter',
-		        author: 'J. K. Rowling',
-		        stores: [{
-			        	id: 1,
-			        	name: 'Barnes & Noble', 
-			        	quantity: 3
-		        		},{
-						id: 2,
-						name: 'Waterstones',
-						quantity: 2
-						},{
-						id: 3,
-						name: 'Book Depository',
-						quantity: 5
-						}]
-					};
-			}]);
+	.controller('BookController', ['$scope', '$http', function($scope, $http) {
+	    var bookId = 1;
+      	$http.jsonp('http://www.mocky.io/v2/583664bb1100006b190c00a1?callback=JSON_CALLBACK').success(function(bookData) {
+            $scope.books = bookData;
+		});
+	}]);
 </script>
 </head>
 <body>
@@ -35,7 +21,7 @@
 		Id: <span ng-bind="books.id"></span>	<br/>
 		Name:<input type="text" ng-model="books.name" />	<br/>
 		Author: <input type="text" ng-model="books.author" />
-		
+
 		<div ng-repeat="book in books.stores">
 			<hr>
 			Store Id: <span ng-bind="book.id"></span>	<br/>
