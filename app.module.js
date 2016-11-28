@@ -1,2 +1,5 @@
-angular
-.module('helloApp',[]);
+(function() {
+    'use strict';
+    angular
+	.module('helloApp',[]);
+})();
