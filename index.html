@@ -5,7 +5,9 @@
 <title>Hello AngularJS - Hello World</title>
 
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
-
+<script	src="app.module.js"></script>
+<script	src="Libro.factory.js"></script>
+<script	src="Book.controller.js"></script>
 </head>
 <body>
 	<div ng-controller="BookController">
@@ -18,47 +20,4 @@
 	    <!-- Up to here we saw how to model a data, encapsulate all its methods in one class and share this class between controllers without code duplication -->
 	</div>
 </body>
-<script>
-	angular.module("helloApp", [])
-	
-	.controller('BookController', ['Libro','$scope', '$http', function( Libro,$scope, $http ) {
-	  $scope.book = new Libro();   	//This way all book’s behavior is encapsulated in Book service. Now, let’s use our shiny Book 
-	  $scope.book.load();			//service in our BookController.
-	}])
-
-	.factory('Libro',[ '$http' ,function( $http ){
-		function Libro(){			//As you can see, the controller became very thin. It now creates a Book instance, assigns it 								//to the scope and loads it from the backend. When the book will be loaded, it’s properties 							//will be changed and so the template. Keep in mind that other controllers that interact with 								//a book, simply inject the Book service.
-		};
-
-		Libro.prototype = {
-			load:function(){
-				var url = 'http://www.mocky.io/v2/583664bb1100006b190c00a1?callback=JSON_CALLBACK';
-				var _scope=this;
-				$http.jsonp( url ).success( function( jsonBookData ) {
-					_scope.setData( jsonBookData );
-				});
-
-			},
-			setData:function( _jsonBookData ){
-				angular.extend( this,_jsonBookData );
-			},
-			delete:function(){
-				alert( "Se ha invocado el borrado" );
-			},
-			update:function(){
-				alert( "Se ha invocado el Update" );
-			},
-			isAvailable:function(){
-				if ( !this.stores || this.stores.length === 0 ) {
-					return false;
-				}
-
-				return ( this.stores.length>0 );
-			}
-
-		};
-
-		return Libro;
-	}]);
-</script>
 </html>	
