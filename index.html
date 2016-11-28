@@ -15,7 +15,7 @@
 	    Name:<input type="text" ng-model="book.name" />    <br/>
 	    Author: <input type="text" ng-model="book.author" />    <br/>
 	    Is Available: <span ng-bind="book.isAvailable() ? 'Yes' : 'No' "></span>    <br/>
-	    <button ng-click="book.delete()">Delete</button>    <br/>    
+	    <button ng-click="book.remove()">Delete</button>    <br/>    
 	    <button ng-click="book.update()">Update</button>
 	    <!-- Up to here we saw how to model a data, encapsulate all its methods in one class and share this class between controllers without code duplication -->
 	</div>
