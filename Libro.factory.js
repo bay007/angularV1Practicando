@@ -8,6 +8,16 @@
 	fLibro.$inject=['$http'];
 	
 	function fLibro( $http ){
+
+		Libro.prototype = {
+			load: load,
+			setData:setData,
+			remove:remove,
+			update:update,
+			isAvailable:isAvailable
+		};
+
+		return Libro;
 	
 		function Libro(){};		//As you can see, the controller became very thin. It now creates a Book instance, assigns it
 								//to the scope and loads it from the backend. When the book will be loaded, it’s properties 							
@@ -40,16 +50,6 @@
 			return ( this.stores.length>0 );
 		};
 
-
-		Libro.prototype = {
-			load: load,
-			setData:setData,
-			remove:remove,
-			update:update,
-			isAvailable:isAvailable
-		};
-
-		return Libro;
 	};
 
 })();
